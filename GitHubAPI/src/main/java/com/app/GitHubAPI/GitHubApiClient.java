@@ -1,6 +1,8 @@
 package com.app.GitHubAPI;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,7 +17,17 @@ public class GitHubApiClient {
 
     public GitHubApiClient(WebClient.Builder webClientBuilder) {
         String GITHUB_API_URL = "https://api.github.com";
-        this.webClient = webClientBuilder.baseUrl(GITHUB_API_URL).build();
+
+        if(System.getenv("GITHUB_API_TOKEN").isEmpty() || System.getenv("GITHUB_API_TOKEN") == null)
+        {
+            this.webClient = webClientBuilder.baseUrl(GITHUB_API_URL).build();
+        }
+        else
+        {
+            this.webClient = webClientBuilder.baseUrl(GITHUB_API_URL)
+                    .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer "+System.getenv("GITHUB_API_TOKEN"))
+                    .build();
+        }
     }
 
     public List<GitHubRepository> getUserRepositories(String username) {

@@ -1,5 +1,7 @@
 package com.app.GitHubAPI;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +17,14 @@ public class GitHubController {
     }
 
     @GetMapping("/api/github/repositories/branches")
-    public List<String> getBranches(@RequestParam(value = "username") String username) {
-        return gitHubApiClient.getBranches(username);
+    public String getBranches(@RequestParam(value = "username") String username) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String branches = String.join(",",gitHubApiClient.getBranches(username));
+
+        Object json = objectMapper.readValue(branches, Object.class);
+        String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+
+        return "<pre>" + formattedJson + "<pre>";
     }
 
 

@@ -4,6 +4,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -24,9 +26,27 @@ public class GitHubApiClient {
                 .block();
     }
 
-    public String getForksFromRepo(String owner, String repo) {
+    public LinkedList<GitHubRepository> getUserRepositoriesWithoutForks(String username) {
+        LinkedList<GitHubRepository> list = new LinkedList<>(getUserRepositories(username));
+        list.removeIf(GitHubRepository::getFork);
+        return list;
+    }
+
+    public ArrayList<String> getBranches(String username) {
+        ArrayList<GitHubRepository> list = new ArrayList<>(getUserRepositoriesWithoutForks(username));
+
+        ArrayList<String> listOfBranches = new ArrayList<>();
+        list.forEach(gitHubRepository ->
+        {
+            listOfBranches.add(getBranchesFromRepo(gitHubRepository.getOwner().getLogin(), gitHubRepository.getName()));
+        });
+
+        return listOfBranches;
+    }
+
+    public String getBranchesFromRepo(String owner, String repo) {
         return webClient.get()
-                .uri("/repos/{owner}/{repo}/forks", owner, repo)
+                .uri("/repos/{owner}/{repo}/branches", owner, repo)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

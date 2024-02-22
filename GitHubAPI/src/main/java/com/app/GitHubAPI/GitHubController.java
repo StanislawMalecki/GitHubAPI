@@ -14,9 +14,15 @@ public class GitHubController {
         this.gitHubApiClient = gitHubApiClient;
     }
 
+    @GetMapping("/api/github/repositories/branches")
+    public List<String> getBranches(@RequestParam(value = "username") String username) {
+        return gitHubApiClient.getBranches(username);
+    }
+
+
     @GetMapping("/api/github/repositories")
     public List<GitHubRepository> getUserRepositories(@RequestParam(value = "username") String username) {
-        return gitHubApiClient.getUserRepositories(username);
+        return gitHubApiClient.getUserRepositoriesWithoutForks(username);
     }
 
     @GetMapping("/api/github/repositories/raw")

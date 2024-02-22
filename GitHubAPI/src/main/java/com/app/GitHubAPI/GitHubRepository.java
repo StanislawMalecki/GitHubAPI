@@ -6,24 +6,24 @@ import lombok.Getter;
 
 import java.util.List;
 
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitHubRepository {
     private Long id;
-//    @JsonProperty("node_id")
     private String node_id;
-    private String name;
 
-    @JsonProperty("full_name")
+    @Getter
+    @JsonProperty("name")
+    private String name;
     private String full_name;
 
+    @Getter
     @JsonProperty("owner")
     private Owner owner;
     private Boolean privateRepo;
     private String html_url;
     private String description;
 
-    @JsonProperty("fork")
+    @Getter
     private Boolean fork;
     private String url;
     private String archive_url;
@@ -79,10 +79,11 @@ public class GitHubRepository {
     private Boolean web_commit_signoff_required;
     private SecurityAndAnalysis security_and_analysis;
 
-    @Getter
     public static class Owner {
         private String name;
         private String email;
+        @Getter
+        @JsonProperty("login")
         private String login;
         private Integer id;
         private String avatar_url;
@@ -103,7 +104,7 @@ public class GitHubRepository {
         private String starred_at;
     }
 
-    @Getter
+//    @Getter
     public static class Permissions {
         private Boolean admin;
         private Boolean maintain;
@@ -112,7 +113,7 @@ public class GitHubRepository {
         private Boolean pull;
     }
 
-    @Getter
+//    @Getter
     public static class CodeOfConduct {
         private String key;
         private String name;
@@ -121,7 +122,7 @@ public class GitHubRepository {
         private String html_url;
     }
 
-    @Getter
+//    @Getter
     public static class License {
         private String key;
         private String name;
@@ -130,7 +131,7 @@ public class GitHubRepository {
         private String node_id;
     }
 
-    @Getter
+//    @Getter
     public static class SecurityAndAnalysis {
         private AdvancedSecurity advanced_security;
         private DependabotSecurityUpdates dependabot_security_updates;
@@ -138,20 +139,20 @@ public class GitHubRepository {
         private SecretScanningPushProtection secret_scanning_push_protection;
     }
 
-    @Getter
+//    @Getter
     public static class AdvancedSecurity {
         private String status;
     }
 
-    @Getter
+//    @Getter
     public static class DependabotSecurityUpdates {
         private String status;
     }
-    @Getter
+//    @Getter
     public static class SecretScanning {
         private String status;
     }
-    @Getter
+//    @Getter
     public static class SecretScanningPushProtection {
         private String status;
     }

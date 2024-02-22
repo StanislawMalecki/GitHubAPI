@@ -1,6 +1,5 @@
 package com.app.GitHubAPI;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,10 @@ public class GitHubApiClient {
         ArrayList<String> listOfBranches = new ArrayList<>();
         list.forEach(gitHubRepository ->
         {
-            listOfBranches.add(getBranchesFromRepo(gitHubRepository.getOwner().getLogin(), gitHubRepository.getName()));
+            listOfBranches.add("[{\"name\":\"%s\",\"owner\":{\"login\":\"%s\"}},%s]".formatted(
+                    gitHubRepository.getName(),
+                    gitHubRepository.getOwner().getLogin(),
+                    getBranchesFromRepo(gitHubRepository.getOwner().getLogin(), gitHubRepository.getName())));
         });
 
         return listOfBranches;

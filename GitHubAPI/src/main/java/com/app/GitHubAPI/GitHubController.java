@@ -19,7 +19,7 @@ public class GitHubController {
     @GetMapping("/api/github/repositories/branches")
     public String getBranches(@RequestParam(value = "username") String username) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String branches = String.join(",",gitHubApiClient.getBranches(username));
+        String branches = "["+String.join(",",gitHubApiClient.getBranches(username))+"]";
 
         Object json = objectMapper.readValue(branches, Object.class);
         String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);

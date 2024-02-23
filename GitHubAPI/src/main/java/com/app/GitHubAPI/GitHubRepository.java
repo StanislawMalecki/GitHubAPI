@@ -7,7 +7,8 @@ import lombok.Getter;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubRepository {
+public class GitHubRepository
+{
     private Long id;
     private String node_id;
 
@@ -79,7 +80,8 @@ public class GitHubRepository {
     private Boolean web_commit_signoff_required;
     private SecurityAndAnalysis security_and_analysis;
 
-    public static class Owner {
+    public static class Owner
+    {
         private String name;
         private String email;
         @Getter
@@ -105,7 +107,8 @@ public class GitHubRepository {
     }
 
 //    @Getter
-    public static class Permissions {
+    public static class Permissions
+{
         private Boolean admin;
         private Boolean maintain;
         private Boolean push;
@@ -114,7 +117,8 @@ public class GitHubRepository {
     }
 
 //    @Getter
-    public static class CodeOfConduct {
+    public static class CodeOfConduct
+    {
         private String key;
         private String name;
         private String url;
@@ -123,7 +127,8 @@ public class GitHubRepository {
     }
 
 //    @Getter
-    public static class License {
+    public static class License
+    {
         private String key;
         private String name;
         private String spdx_id;
@@ -132,7 +137,8 @@ public class GitHubRepository {
     }
 
 //    @Getter
-    public static class SecurityAndAnalysis {
+    public static class SecurityAndAnalysis
+    {
         private AdvancedSecurity advanced_security;
         private DependabotSecurityUpdates dependabot_security_updates;
         private SecretScanning secret_scanning;
@@ -140,20 +146,24 @@ public class GitHubRepository {
     }
 
 //    @Getter
-    public static class AdvancedSecurity {
+    public static class AdvancedSecurity
+    {
         private String status;
     }
 
 //    @Getter
-    public static class DependabotSecurityUpdates {
+    public static class DependabotSecurityUpdates
+    {
         private String status;
     }
 //    @Getter
-    public static class SecretScanning {
+    public static class SecretScanning
+    {
         private String status;
     }
 //    @Getter
-    public static class SecretScanningPushProtection {
+    public static class SecretScanningPushProtection
+    {
         private String status;
     }
 }

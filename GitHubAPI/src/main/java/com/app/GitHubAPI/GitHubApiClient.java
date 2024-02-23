@@ -17,7 +17,7 @@ public class GitHubApiClient {
     public GitHubApiClient(WebClient.Builder webClientBuilder) {
         String GITHUB_API_URL = "https://api.github.com";
 
-        if(System.getenv("GITHUB_API_TOKEN").isEmpty() || System.getenv("GITHUB_API_TOKEN") == null)
+        if(System.getenv("GITHUB_API_TOKEN") == null || System.getenv("GITHUB_API_TOKEN").isEmpty())
         {
             this.webClient = webClientBuilder.baseUrl(GITHUB_API_URL).build();
         }
